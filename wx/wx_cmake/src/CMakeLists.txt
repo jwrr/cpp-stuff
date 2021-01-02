@@ -1,6 +1,7 @@
 set (SOURCE_FILES
-  SimpleFrame.cpp
   SimpleApp.cpp
+    SimpleFrame.cpp
+      SimpleMenuBar.cpp
 )
 
 add_library(simple_lib ${SOURCE_FILES})

@@ -8,6 +8,7 @@ bool SimpleApp::OnInit()
     wxString title("Hello");
     SimpleFrame *simpleframe = new SimpleFrame(title);
     simpleframe->Show(true);
+
     return true;
 }
 
