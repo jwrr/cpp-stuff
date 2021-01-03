@@ -1,0 +1,3 @@
+g++ SimpleToolBarMain.cpp SimpleToolBarFrame.cpp SimpleToolBarApp.cpp  `wx-config --cxxflags --libs` -o toolbar_example
+
+

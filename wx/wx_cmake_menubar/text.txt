@@ -1,0 +1,8 @@
+
+ wxMenuBar* menuBar = new wxMenuBar;
+ wxMenu* fileMenu = new wxMenu; 
+fileMenu->Append(wxID_OPEN, wxT("&Open..."), wxT("Opens a file")); 
+fileMenu->AppendSeparator(); 
+fileMenu->Append(wxID_EXIT, wxT("E&xit"), wxT("Quits the program")); 
+menuBar->Append(fileMenu); 
+frame->SetMenuBar(menuBar, wxT("&File")); 
