@@ -7,11 +7,12 @@ class SimpleApp : public wxApp {
 };
 
 bool SimpleApp::OnInit() {
-    SimpleFrame *toolbar = new SimpleFrame(wxT("SimpleApp"), 800, 600 );
-    toolbar->Show(true);
+    SimpleFrame *frame = new SimpleFrame(wxT("SimpleApp"), 640, 480 );
+    frame->Show(true);
     return true;
 }
 
+// --------------------------------------------------------------------
 
 // main polling loop
 IMPLEMENT_APP(SimpleApp)
