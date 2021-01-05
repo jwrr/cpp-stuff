@@ -1,4 +1,5 @@
 #include <wx/wx.h>
+#include "SimpleFrame.h"
 #include "SimpleLayout.h"
 
 void SimpleLayout::Create(wxFrame* frame, int width, int height)

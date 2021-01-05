@@ -1,63 +1,71 @@
-#include <wx/wx.h>
+#include "SimpleFrame.h"
 #include "SimpleMenuBar.h"
+
+using namespace std;
+
+#define addItem(handler, id, name, help) \
+  menuDropDown->Append(id, wxT(name), wxT(help)); \
+  frame->Connect(id, wxEVT_COMMAND_TOOL_CLICKED,  wxCommandEventHandler(handler));
+
+//SimpleMenuBar.cpp:11:57: error: no matching function for call to ‘wxFrame::Connect(int&, const wxEventTypeTag<wxCommandEvent>&, std::function<void()>&)’
+
 
 void SimpleMenuBar::Create(wxFrame* frame)
 {
   wxMenuBar* menuBar = new wxMenuBar;
   wxMenu* menuDropDown;
+  
+  int ii = 9999;
+  
+  
+  frame->Connect(ii, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler(SimpleFrame::OnNew));
 
   menuDropDown = new wxMenu;
   menuBar->Append(menuDropDown, wxT("&File"));
-  {
-    menuDropDown->Append(wxID_OPEN,       wxT("&Open"),        wxT("Opens a file"));
-    menuDropDown->Append(wxID_REFRESH,    wxT("&Refresh"),     wxT("Re-opens a file"));
-    menuDropDown->Append(wxID_NEW,        wxT("&New"),         wxT("Create new file"));
-    menuDropDown->AppendSeparator();
-    menuDropDown->Append(wxID_SAVE,       wxT("&Save"),        wxT("Save file"));
-    menuDropDown->Append(wxID_SAVEAS,     wxT("Save &As"),     wxT("Save As file"));
-    menuDropDown->AppendSeparator();
-    menuDropDown->Append(wxID_CLOSE,      wxT("&Close"),       wxT("Close file"));
-    menuDropDown->Append(wxID_EXIT,       wxT("E&xit"),        wxT("Quits the program"));
-  }
-
+  addItem(SimpleFrame::OnOpen,    wxID_OPEN,    "&Open",    "Open file")
+  addItem(SimpleFrame::OnRefresh, wxID_REFRESH, "&Refresh", "Refresh file")
+  addItem(SimpleFrame::OnNew,     wxID_NEW,     "&New",     "Create new file")
+  menuDropDown->AppendSeparator();
+  addItem(SimpleFrame::OnSave,    wxID_SAVE,    "&Save",    "Save file")
+  addItem(SimpleFrame::OnSaveAs,  wxID_SAVEAS,  "Save As",  "Save As")
+  menuDropDown->AppendSeparator();
+  addItem(SimpleFrame::OnClose,   wxID_CLOSE,   "&Close",   "Close file")
+  addItem(SimpleFrame::OnExit,    wxID_EXIT,    "&Exit",    "Exit Program")
+  
+  
   menuDropDown = new wxMenu;
-  menuBar->Append(menuDropDown, wxT("&Edit"));
-  {
-    menuDropDown->Append(wxID_UNDO,       wxT("&Undo"),        wxT("Undo command"));
-    menuDropDown->Append(wxID_REDO,       wxT("&Redo"),        wxT("Redo command"));
-    menuDropDown->AppendSeparator();
-    menuDropDown->Append(wxID_SELECTALL,  wxT("Select &All"),  wxT("Select All"));
-    menuDropDown->Append(wxID_COPY,       wxT("&Copy"),        wxT("Copy selection"));
-    menuDropDown->Append(wxID_CUT,        wxT("Cu&t"),         wxT("Cut  selection"));
-    menuDropDown->Append(wxID_PASTE,      wxT("&Paste"),       wxT("Paste"));
-    menuDropDown->AppendSeparator();
-    menuDropDown->Append(wxID_FIND,       wxT("&Find"),        wxT("Find"));
-    menuDropDown->Append(wxID_REPLACE,    wxT("Rep&lace"),     wxT("Replace"));
-  }
+  menuBar->Append(menuDropDown,     wxT("&Edit"));
+  addItem(SimpleFrame::OnUndo,      wxID_UNDO,      "&Undo",       "Undo Command")
+  addItem(SimpleFrame::OnRedo,      wxID_REDO,      "&Redo",       "Redo Command")
+  menuDropDown->AppendSeparator();
+  addItem(SimpleFrame::OnSelectAll, wxID_SELECTALL, "&Select All", "SelectAll Command")
+  addItem(SimpleFrame::OnCopy,      wxID_COPY,      "&Copy",       "Copy Command")
+  addItem(SimpleFrame::OnPaste,     wxID_PASTE,     "&Paste",      "PasteCommand")
+  menuDropDown->AppendSeparator();
+  addItem(SimpleFrame::OnFind,      wxID_FIND,      "&Find",       "Find Command")
+  addItem(SimpleFrame::OnReplace,   wxID_REPLACE,   "&Replace",    "Replace Command")
+  
+  
 
   menuDropDown = new wxMenu;
   menuBar->Append(menuDropDown, wxT("&Nav"));
-  {
-    menuDropDown->Append(wxID_HOME,       wxT("&Home"),        wxT("Help"));
-    menuDropDown->Append(wxID_FIRST,      wxT("&First"),       wxT("Goto First"));
-    menuDropDown->Append(wxID_LAST,       wxT("&Last"),        wxT("Goto Last"));
-    menuDropDown->Append(wxID_JUMP_TO,    wxT("&Jump To"),     wxT("Jump to"));
-    menuDropDown->AppendSeparator();
-    menuDropDown->Append(wxID_TOP,        wxT("&Top"),         wxT("Goto Top"));
-    menuDropDown->Append(wxID_BOTTOM,     wxT("&Bottom"),      wxT("Goto Bottom"));
-    menuDropDown->AppendSeparator();
-    menuDropDown->Append(wxID_UP,         wxT("&Up"),          wxT("Go Up"));
-    menuDropDown->Append(wxID_DOWN,       wxT("&Down"),        wxT("Go Down"));
-  }
+  addItem(SimpleFrame::OnHome,    wxID_HOME,    "&Home",    "Home Command")
+  addItem(SimpleFrame::OnFirst,   wxID_FIRST,   "&First",   "First Command")
+  addItem(SimpleFrame::OnLast,    wxID_LAST,    "&Last",    "Last Command")
+  addItem(SimpleFrame::OnJumpTo,  wxID_JUMP_TO, "&Jump To", "Jump To Command")
+  addItem(SimpleFrame::OnTop,     wxID_TOP,     "&Top",     "Top Command")
+  addItem(SimpleFrame::OnBottom,  wxID_BOTTOM,  "&Bottom",  "Bottom Command")
+  addItem(SimpleFrame::OnUp,      wxID_UP,      "&Up",      "Up Command")
+  addItem(SimpleFrame::OnDown,    wxID_DOWN,    "&Down",    "Down Command")
+
 
   menuDropDown = new wxMenu;
-  menuBar->Append(menuDropDown, wxT("&Help"));
-  {
-    menuDropDown->Append(wxID_HELP,       wxT("&Help"),        wxT("Help"));
-    menuDropDown->Append(wxID_INFO,       wxT("&Info"),        wxT("Information"));
-    menuDropDown->AppendSeparator();
-    menuDropDown->Append(wxID_ABOUT,      wxT("&About"),       wxT("Version"));
-  }
+  menuBar->Append(menuDropDown,   wxT("&Help"));
+  addItem(SimpleFrame::OnHelp,    wxID_HELP,    "&Help",    "Help Command")
+  addItem(SimpleFrame::OnInfo,    wxID_INFO,    "&Info",    "Info Command")
+  menuDropDown->AppendSeparator();
+  addItem(SimpleFrame::OnAbout,   wxID_ABOUT,   "&About",   "About Command")
+
 
   frame->SetMenuBar(menuBar);
 
