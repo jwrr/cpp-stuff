@@ -1,3 +1,3 @@
-g++ main.cpp SimpleFrame.cpp SimpleToolBar.cpp SimpleMenuBar.cpp SimpleLayout.cpp `wx-config --cxxflags --libs` -o simple_example
+g++ main.cpp SimpleFrame.cpp SimpleToolBar.cpp SimpleMenuBar.cpp SimpleLayout.cpp SimpleImagePanel.cpp  `wx-config --cxxflags --libs` -o simple_example
 
 

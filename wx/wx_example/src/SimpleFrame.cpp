@@ -12,6 +12,7 @@ wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(width, height))
     SimpleMenuBar::Create(this);
     SimpleToolBar::Create(this);
     SimpleLayout::Create(this, width, height);
+
 }
 
 // ----------------------------------------------------------------------------
