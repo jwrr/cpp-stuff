@@ -2,23 +2,23 @@
 
 #include <iostream>
 #include <fstream>
-#include "raw.hpp"
+#include "rawvector.hpp"
 
 using namespace std;
 
-Raw::Raw(string filename, size_t height, size_t width, size_t bitwidth) :
+RawVector::RawVector(string filename, size_t height, size_t width, size_t bitwidth) :
   filename(filename), height(height), width(width), bitwidth(bitwidth)
 {
   bool success = readVector(filename, imgvec_);
 }
 
 
-Raw::~Raw(void)
+RawVector::~RawVector(void)
 {
 }
 
 
-size_t  Raw::getFilesize(ifstream& ifs)
+size_t  RawVector::getFilesize(ifstream& ifs)
 {
   ifs.seekg(0, std::ios::end);
   size_t filesize=ifs.tellg();
@@ -27,7 +27,7 @@ size_t  Raw::getFilesize(ifstream& ifs)
 }
 
 
-bool Raw::readVector(string filename, vector<uint16_t>& vec)
+bool RawVector::readVector(string filename, vector<uint16_t>& vec)
 {
   ifstream ifs(filename, std::ios::binary);
   if (!ifs) return false; // error
@@ -39,7 +39,7 @@ bool Raw::readVector(string filename, vector<uint16_t>& vec)
 }
 
 
-bool Raw::writeVector(string filename, vector<uint16_t>& vec)
+bool RawVector::writeVector(string filename, vector<uint16_t>& vec)
 {
   ofstream ofs(filename);
   if (!ofs) return false; // error
@@ -49,31 +49,31 @@ bool Raw::writeVector(string filename, vector<uint16_t>& vec)
 }
 
 
-uint16_t Raw::at(size_t idx)
+uint16_t RawVector::at(size_t idx)
 {
   return imgvec_.at(idx);
 }
 
 
-uint16_t Raw::at(size_t row, size_t col)
+uint16_t RawVector::at(size_t row, size_t col)
 {
   return imgvec_.at(row*width+col);
 }
 
 
-size_t Raw::size()
+size_t RawVector::size()
 {
   return imgvec_.size();
 }
 
 
-bool Raw::save()
+bool RawVector::save()
 {
   return writeVector(filename, imgvec_);
 }
 
 
-bool Raw::saveas(string filename)
+bool RawVector::saveas(string filename)
 {
   return writeVector(filename, imgvec_);
 }
@@ -83,7 +83,8 @@ bool Raw::saveas(string filename)
 // ============================================================================
 
 
-#define print(a,b) std::cout << a << " " << b << endl;
+#define print2(a,b) std::cout << a << " " << b << endl;
+#define print4(a,b,c,d) std::cout << a << " " << b << " " << c << " " << d << endl;
 #define hex(a) std::cout << std::hex << a << std::dec << " ";
 
 
@@ -92,7 +93,7 @@ int main()
   size_t w = 640;
   size_t h = 480;
   size_t expected_size = h * w;
-  Raw raw1("bin.raw", 480, 640, 16);
+  RawVector raw1("bin.raw", 480, 640, 16);
   if (raw1.size()==0) {
     cout << "Error opening file '"  << raw1.filename << "'\n";
     return 1;
@@ -105,10 +106,10 @@ int main()
   
   raw1.saveas("new.raw");
   
-  print("width =",raw1.width)
+  print2("width =",raw1.width)
   
-  for (int r=0; r<1; r++) {
-    for (int c=0; r<raw1.width; c++) {
+  for (int r=0; r<raw1.height; r++) {
+    for (int c=0; c<raw1.width; c++) {
       hex(raw1.at(r,c))
     }
     cout << endl << endl;
