@@ -1,1 +1,0 @@
-clear && g++ xtensor1.cpp && ./a.out
