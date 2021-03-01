@@ -6,19 +6,20 @@
 #include <string>
 #include <vector>
 
+template <typename TT>
 class RawVector {
 private:
   int               class_variable_{37};
-  std::vector<uint16_t>  imgvec_;
+  std::vector<TT>   imgvec_;
   size_t            getFilesize(std::ifstream& ifs);
-  bool              fromfile(std::string filename, std::vector<uint16_t>& vec);
-  bool              tofile(std::string fiename, std::vector<uint16_t>& vec);
+  bool              fromfile(std::string filename, std::vector<TT>& vec);
+  bool              tofile(std::string fiename, std::vector<TT>& vec);
 
 public:
   RawVector(std::string filename, size_t height, size_t width, size_t bitwidth);
   ~RawVector(void);
-  uint16_t at(size_t idx);
-  uint16_t at(size_t row, size_t col);
+  TT at(size_t idx);
+  TT at(size_t row, size_t col);
   size_t  size();
   bool save();
   bool saveas(std::string filename);

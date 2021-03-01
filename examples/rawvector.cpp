@@ -4,20 +4,22 @@
 #include <fstream>
 #include "rawvector.hpp"
 
-
-RawVector::RawVector(std::string filename, size_t height, size_t width, size_t bitwidth) :
+template<typename TT>
+RawVector<TT>::RawVector(std::string filename, size_t height, size_t width, size_t bitwidth) :
   filename(filename), height(height), width(width), bitwidth(bitwidth)
 {
   bool success = fromfile(filename, imgvec_);
 }
 
 
-RawVector::~RawVector(void)
+template<typename TT>
+RawVector<TT>::~RawVector(void)
 {
 }
 
 
-size_t  RawVector::getFilesize(std::ifstream& ifs)
+template<typename TT>
+size_t  RawVector<TT>::getFilesize(std::ifstream& ifs)
 {
   ifs.seekg(0, std::ios::end);
   size_t filesize=ifs.tellg();
@@ -26,53 +28,60 @@ size_t  RawVector::getFilesize(std::ifstream& ifs)
 }
 
 
-bool RawVector::fromfile(std::string filename, std::vector<uint16_t>& vec)
+template<typename TT>
+bool RawVector<TT>::fromfile(std::string filename, std::vector<TT>& vec)
 {
   std::ifstream ifs(filename, std::ios::binary);
   if (!ifs) return false; // error
   size_t filesize = getFilesize(ifs);
-  size_t vecsize  = filesize / sizeof(uint16_t);
+  size_t vecsize  = filesize / sizeof(TT);
   vec.resize(vecsize);
   ifs.read((char *)vec.data(), filesize);
   return (vec.size()>0);
 }
 
 
-bool RawVector::tofile(std::string filename, std::vector<uint16_t>& vec)
+template<typename TT>
+bool RawVector<TT>::tofile(std::string filename, std::vector<TT>& vec)
 {
   std::ofstream ofs(filename);
   if (!ofs) return false; // error
-  size_t bytesize = sizeof(uint16_t) * vec.size();
+  size_t bytesize = sizeof(TT) * vec.size();
   ofs.write((char *)vec.data(), bytesize);
   return true;
 }
 
 
-uint16_t RawVector::at(size_t idx)
+template<typename TT>
+TT RawVector<TT>::at(size_t idx)
 {
   return imgvec_.at(idx);
 }
 
 
-uint16_t RawVector::at(size_t row, size_t col)
+template<typename TT>
+TT RawVector<TT>::at(size_t row, size_t col)
 {
   return imgvec_.at(row*width+col);
 }
 
 
-size_t RawVector::size()
+template<typename TT>
+size_t RawVector<TT>::size()
 {
   return imgvec_.size();
 }
 
 
-bool RawVector::save()
+template<typename TT>
+bool RawVector<TT>::save()
 {
   return tofile(filename, imgvec_);
 }
 
 
-bool RawVector::saveas(std::string filename)
+template<typename TT>
+bool RawVector<TT>::saveas(std::string filename)
 {
   return tofile(filename, imgvec_);
 }
@@ -92,7 +101,7 @@ int main()
   size_t w = 640;
   size_t h = 480;
   size_t expected_size = h * w;
-  RawVector raw1("bin.raw", 480, 640, 16);
+  RawVector<uint16_t> raw1("bin.raw", 480, 640, 16);
   if (raw1.size()==0) {
     std::cout << "Error opening file '"  << raw1.filename << "'\n";
     return 1;
