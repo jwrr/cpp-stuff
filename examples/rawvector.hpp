@@ -6,27 +6,24 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
-class RawVector
-{
+class RawVector {
 private:
   int               class_variable_{37};
-  vector<uint16_t>  imgvec_;
-  size_t            getFilesize(ifstream& ifs);
-  bool              readVector(string filename, vector<uint16_t>& vec);
-  bool              writeVector(string fiename, vector<uint16_t>& vec);
+  std::vector<uint16_t>  imgvec_;
+  size_t            getFilesize(std::ifstream& ifs);
+  bool              fromfile(std::string filename, std::vector<uint16_t>& vec);
+  bool              tofile(std::string fiename, std::vector<uint16_t>& vec);
 
 public:
-  RawVector(string filename, size_t height, size_t width, size_t bitwidth);
+  RawVector(std::string filename, size_t height, size_t width, size_t bitwidth);
   ~RawVector(void);
   uint16_t at(size_t idx);
   uint16_t at(size_t row, size_t col);
   size_t  size();
   bool save();
-  bool saveas(string filename);
+  bool saveas(std::string filename);
 
-  const string     filename;
+  const std::string     filename;
   const size_t     height;
   const size_t     width;
   const size_t     bitwidth;
