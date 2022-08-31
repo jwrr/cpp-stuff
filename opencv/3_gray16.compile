@@ -1,0 +1,2 @@
+g++ 3_gray16.cpp  `pkg-config --cflags --libs opencv4` -o 3_gray16.exe
+
