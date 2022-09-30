@@ -1,0 +1,4 @@
+g++ hello.cpp -w -I/usr/include/SDL2 -L/usr/lib -lSDL2 -o hello.exe
+## g++ hello.cpp -w -I/usr/local/include/SDL2 -L/usr/local/lib -lSDL2 -o hello.exe
+
+
