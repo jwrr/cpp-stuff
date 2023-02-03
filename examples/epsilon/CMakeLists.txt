@@ -1,3 +1,10 @@
 cmake_minimum_required(VERSION 3.16.3)
+set(CMAKE_CXX_STANDARD 14)
 project (epsilon)
 add_executable(epsilon main.cpp)
+add_executable(epsilon_test main_gtest.cpp)
+find_package(GTest REQUIRED)
+target_link_libraries(epsilon_test GTest::gtest_main)
+include(GoogleTest)
+
+gtest_discover_tests(epsilon_test)
