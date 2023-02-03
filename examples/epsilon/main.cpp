@@ -6,37 +6,23 @@
 // Lecturer: Matthias Troyer
 
 #include <iostream>
+#include "epsilon.h"
 
 using namespace std;
-
-template <typename T>
-T epsilon()
-{
-  T one = 1.0;  
-  T eps = one;
-  while (true) {
-    // cout << "T eps = " << eps << endl;
-    T eps_next = eps / 2.0;
-    if (one == one + eps_next) {
-      break;
-    }
-    eps = eps_next;
-  }
-  return eps;
-}
 
 int main()
 {
   cout << "hello\n";
 
-  float f_eps = epsilon<float>();
+  float f_eps = EPS::epsilon<float>();
   cout << "float eps = " << f_eps << endl;
 
-  double d_eps = epsilon<double>();
+  double d_eps = EPS::epsilon<double>();
   cout << "double eps = " << d_eps << endl;
 
-  long double ld_eps = epsilon<long double>();
+  long double ld_eps = EPS::epsilon<long double>();
   cout << "long double eps = " << ld_eps << endl;
 
   return 0;
 }
+

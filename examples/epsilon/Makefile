@@ -2,6 +2,6 @@
 
 cc=g++
 
-epsilon: epsilon.cpp
-	${cc} epsilon.cpp -o epsilon
+epsilon: main.cpp
+	${cc} main.cpp -o epsilon
  

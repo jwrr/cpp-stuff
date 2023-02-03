@@ -3,7 +3,7 @@
 #   source epsilon.cpp
 #   ./a.out
 
-g++ epsilon.cpp
+g++ main.cpp
 echo 'type> ./a.out to run'
 
 
