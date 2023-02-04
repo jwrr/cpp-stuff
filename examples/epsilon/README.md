@@ -80,6 +80,32 @@ cmake --build . --config Release
 ## Run Test
 ./epsilon_btest
 
+```
+
+
+Install Catch2 test with Conan
+--------------------------------------
+
+```
+## Download and Build packages
+mkdir build_catch2
+cd build_catch2
+
+conan install .. --build=catch2
+
+## Optional - Change Virtual Build Environment
+cmake --version
+source conanbuild.sh
+cmake --version
+which cmake
+
+## Compile Test using CMAKE
+cp ../CMakeLists.txt.catch2 ../CMakeLists.txt
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+cmake --build . --config Release
+
+## Run Test
+./epsilon_catch2
 
 ```
 
