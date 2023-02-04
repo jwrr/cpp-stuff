@@ -1,0 +1,11 @@
+[requires]
+gtest/cci.20210126
+
+[build_requires]
+cmake/3.25.1
+
+[generators]
+CMakeDeps
+CMakeToolchain
+VirtualBuildEnv
+
