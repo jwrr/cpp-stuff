@@ -23,19 +23,22 @@ sudo make
 sudo cp ./lib/libgtest*.a /usr/local/lib
 ```
 
-Install, Compile and Run GTEST using Conan
+Install, Compile and Run GoogleTEST using Conan
 ------------------------------------------
+
+* The '-build=all' option builds from source files. Skip this option to download
+  pre-built binaries.
+* Root/sudo is **NOT** required. All packages are downloaded and built in your 
+  home directory (~/.conan).
+* If gtest is already installed on your system, then the conan install steps are 
+  completely optional. Cmake will just use the gtest that you installed.
+* Changing the Virtual Build Environment is optional. This is to show that Conan
+  can download, install and use custom tools/versions.
 
 ```
 ## Download and Build packages
-mkdir build_conan
-cd build_conan
-
-## The '-build=all' option builds from source files. Skip this option to
-## download pre-built binaries. All packages are downloaded and built in
-## your home directory (~/.conan).
-## Root/sudo is **NOT** required. The conan install step is completely optional
-## if you already have gtest installed on your system.
+mkdir build_gtest
+cd build_gtest
 
 conan install .. -build=all
 
@@ -50,6 +53,34 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
 cmake --build . --config Release
 
 ## Run Test
-./epsilon_test
+./epsilon_gtest
 ```
+
+Use Conan to Install Boost Test
+-------------------------------
+
+```
+## Download and Build packages
+mkdir build_btest
+cd build_btest
+
+conan install .. --build=boost
+
+## Optional - Change Virtual Build Environment
+cmake --version
+source conanbuild.sh
+cmake --version
+which cmake
+
+## Compile Test using CMAKE
+cp ../CMakeLists.txt.btest ../CMakeLists.txt
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+cmake --build . --config Release
+
+## Run Test
+./epsilon_btest
+
+
+```
+
 
