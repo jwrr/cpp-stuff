@@ -26,6 +26,7 @@ sudo cp ./lib/libgtest*.a /usr/local/lib
 Install, Compile and Run GTEST using Conan
 ------------------------------------------
 
+```
 ## Download and Build packages
 mkdir build_conan
 cd build_conan
@@ -50,5 +51,5 @@ cmake --build . --config Release
 
 ## Run Test
 ./epsilon_test
-
+```
 
