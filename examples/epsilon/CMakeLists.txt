@@ -1,13 +1,9 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.16.3)
 set(CMAKE_CXX_STANDARD 14)
-
-project (epsilon_catch2)
-
-find_package(Catch2 3 REQUIRED)
-# These tests can use the Catch2-provided main
-add_executable(epsilon_catch2 main_catch2.cpp)
-target_link_libraries(epsilon_catch2 PRIVATE Catch2::Catch2WithMain)
-
-# These tests need their own main
-# add_executable(custom-main-tests test.cpp test-main.cpp)
-target_link_libraries(epsilon_catch2 PRIVATE Catch2::Catch2)
+project (epsilon)
+add_executable(epsilon main.cpp)
+add_executable(epsilon_gtest main_gtest.cpp)
+find_package(GTest REQUIRED)
+target_link_libraries(epsilon_gtest GTest::gtest_main)
+include(GoogleTest)
+gtest_discover_tests(epsilon_gtest)
