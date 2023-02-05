@@ -130,3 +130,16 @@ void Board::print()
   std::cout << std::endl;
 }
 
+
+int Board::count()
+{
+  int count = 0;
+  for (auto& row : board) {
+    for (auto& cell : row) {
+      if (cell.isAlive()) {
+        count++;
+      }
+    }
+  }
+  return count;
+}
